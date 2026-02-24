@@ -176,7 +176,7 @@ __Álgebra Lineal: El Motor del Movimiento y la Transformación__
 
 Si la geometría es el esqueleto, el álgebra lineal son los músculos y las articulaciones que lo mueven y lo posicionan.
 
-__Matrices:_
+_Matrices:_
 
 Una matriz es una disposición rectangular de números que puede representar una transformación. En lugar de aplicar una operación matemática compleja a cada uno de los millones de puntos de un objeto, aplicamos una simple multiplicación de una matriz por un vector.
 
@@ -318,6 +318,113 @@ Resumen:
 •	Para ajustar colores de forma intuitiva o diseñar una interfaz: usamos HSV o HSL.
 
 
+## 1.5.	Representación y trazo de líneas y polígonos 
+
+El objetivo del trazo de líneas y polígonos es, determinar qué píxeles específicos deben encenderse (con un color determinado) para que, al verlos en conjunto, nuestra mente perciba la forma deseada (una línea recta, el contorno de un polígono, etc.) . Este proceso se conoce como rasterización. El problema principal es que una línea ideal, excepto las perfectamente horizontales o verticales, cortará los píxeles de forma imperfecta. Por lo tanto, cualquier representación en una cuadrícula es una aproximación que contiene un error inherente, producto de pasar de lo continuo (analógico) a lo discreto (digital).
+
+**Trazado de Líneas: Algoritmos Fundamentales**
+
+Para trazar una línea definida por dos puntos extremos (x0, y0) y (x1, y1), se han desarrollado algoritmos que buscan la mejor aproximación posible de la manera más eficiente. Los dos más importantes son:
+
+_1.Algoritmo DDA (Digital Differential Analyzer)_
+
+Es el concepto más intuitivo. Se basa en calcular la pendiente m de la línea (m = Δy / Δx) y, a partir de ella, incrementar una coordenada de a un paso mientras se calcula el valor correspondiente de la otra.
+
+· Si la pendiente es |m| <= 1, se avanza de a un paso en x (x = x + 1) y se calcula y = y + m.
+
+· Si la pendiente es |m| > 1, se invierte la lógica: se avanza de a un paso en y y se calcula x = x + 1/m.
+
+· Ventaja: Es simple de entender e implementar.
+
+· Desventaja: Requiere trabajar con números de punto flotante (decimales) en cada iteración, lo que puede ser más lento y propenso a pequeños errores de redondeo que se acumulan.
+
+*2.Algoritmo de Bresenham*
+
+Desarrollado por Jack E. Bresenham en 1962, este es el algoritmo estándar de la industria para el trazado de líneas debido a su elegancia y eficiencia .
+
+La clave de Bresenham es que utiliza exclusivamente aritmética de números enteros (sumas, restas y desplazamientos de bits), lo que lo hace extremadamente rápido en las arquitecturas de computadoras.
+
+En lugar de calcular la posición exacta de la línea, el algoritmo trabaja con un parámetro de decisión que, en cada paso, determina cuál de los dos píxeles candidatos (el de la misma fila o el de la fila siguiente) está más cerca de la línea ideal.
+
+**Representación de Polígonos**
+
+La forma más común y eficiente de representar un polígono en la memoria de la computadora es mediante una lista ordenada de sus vértices [P1, P2, P3, …, Pn]. El orden de los vértices (generalmente en sentido horario o antihorario) es crucial, ya que define si estamos viendo la cara frontal o posterior del polígono.
+
+Para modelos 3D complejos, esta información se organiza en tablas para facilitar el procesamiento:
+
+· Tabla de Vértices: Almacena las coordenadas (x, y, z) de cada punto único.
+
+· Tabla de Aristas: Almacena los pares de vértices que forman cada línea del modelo.
+
+· Tabla de Polígonos: Almacena las listas de aristas (o vértices) que conforman cada cara poligonal.
+
+**Trazo de Contornos (Wireframe)**
+
+Dibujar el contorno de un polígono es una aplicación directa de los algoritmos de línea que acabamos de ver. Simplemente se aplica el algoritmo de Bresenham (o DDA) entre cada par de vértices consecutivos de la lista, incluyendo el último con el primero para cerrar la figura.
+
+**Relleno de Polígonos**
+
+El objetivo aquí es, una vez definido el contorno, rellenar todo el interior del polígono con un color sólido, un patrón o un degradado. 
+
+## 1.5.1 Formatos de imagen.
+
+· JPEG / JPG (Joint Photographic Experts Group) : Es el estándar para fotografía y web . Utiliza compresión con pérdida, lo que permite archivos muy pequeños a cambio de sacrificar algo de calidad (que a menudo es imperceptible) . No admite transparencias.
+
+· PNG (Portable Network Graphics) : Ideal para web cuando se necesita alta calidad. Usa compresión sin pérdida, por lo que conserva todos los detalles . Es famoso por admitir transparencias (canal alfa), perfecto para logotipos e iconos sobre fondos variables.
+
+· GIF (Graphics Interchange Format) : Muy limitado en color (máximo 256 colores), pero su gran ventaja es que soporta animaciones . Su tamaño de archivo es pequeño, ideal para breves secuencias en bucle en redes sociales o memes.
+
+· BMP (Bitmap) : Es un formato nativo de Windows. Generalmente sin compresión, lo que da como resultado archivos de muy gran tamaño y poco prácticos para web o almacenamiento . Se considera obsoleto para la mayoría de los usos.
+
+· TIFF / TIF (Tagged Image File Format) : Es un formato muy versátil que puede usar compresión sin pérdida. Es el preferido en el mundo de la impresión profesional y la edición, ya que guarda capas y alta calidad, pero genera archivos muy pesados.
+
+<img width="651" height="267" alt="peeeng" src="https://github.com/user-attachments/assets/97f6279e-77bc-4886-8da4-02aa964c9bc0" />
+
+
+## 1.6.	Procesamiento de mapas de bits.  
+
+Este proceso es fundamental en la graficación por computadora porque permite desde simples retoques fotográficos hasta la creación de complejos efectos visuales.
+
+El procesamiento de mapas de bits abarca una amplia gama de operaciones, que se pueden agrupar en las siguientes categorías:
+
+**Filtros y Efectos:** Estas operaciones modifican la apariencia de una imagen al actuar sobre grupos de píxeles.
+  
+  · Desenfoque (Blur): Suaviza la imagen promediando el color de un píxel con el de sus vecinos.
+  
+  · Nitidez (Sharpen): Realza los bordes y detalles aumentando el contraste entre píxeles adyacentes.
+  
+  · Relieve (Emboss): Crea un efecto de profundidad tridimensional simulando luces y sombras.
+
+<img width="645" height="372" alt="blur" src="https://github.com/user-attachments/assets/b979679f-e796-49ae-a96d-589d1f842e4c" />
+
+**Transformaciones Geométricas:** Permiten modificar la posición, la orientación o el tamaño de la imagen. Al ser operaciones que reubican píxeles, a menudo requieren interpolación para calcular los nuevos valores de color y evitar una pérdida notable de calidad.
+  
+  · Traslación: Mover la imagen de un lugar a otro dentro del lienzo.
+  
+  · Rotación: Girar la imagen alrededor de un punto central.
+  
+  · Escalado: Aumentar o disminuir el tamaño de la imagen. Al escalar un mapa de bits, el software debe interpolar (calcular) los nuevos píxeles, lo que puede resultar en imágenes borrosas si se amplía o pixeladas si se reduce drásticamente.
+
+  <img width="646" height="385" alt="rotacion" src="https://github.com/user-attachments/assets/d0d75a56-5ab9-4dde-928f-a4ac85a550d5" />
+
+
+**Ajustes de Color y Brillo:** Estas técnicas manipulan los valores de color de los píxeles para corregir o mejorar la imagen . Los usuarios pueden realizar mejoras con mayor precisión y rapidez que haciéndolo manualmente. Entre los ajustes más comunes se encuentran:
+  
+  · Brillo y Contraste: Aclarar u oscurecer la imagen y aumentar la diferencia entre luces y sombras.
+  
+  · Saturación: Modificar la intensidad de los colores.
+  
+  · Balance de Color: Corregir dominantes de color o crear efectos artísticos alterando la contribución de los canales rojo, verde y azul.
+  
+<img width="640" height="566" alt="gris" src="https://github.com/user-attachments/assets/f52e8a74-3bde-414c-bdad-9a64d7cd035e" />
+
+**Compresión de Imágenes:** Es el proceso de reducir el tamaño (peso) de los archivos de imagen para facilitar su almacenamiento y transmisión. Existen dos tipos principales:
+  
+  · Con pérdida: Elimina información de la imagen que se considera menos importante para reducir drásticamente el tamaño del archivo. Su principal ventaja es la alta tasa de compresión, pero la desventaja es que la calidad original no se puede recuperar. El formato JPEG es el ejemplo más conocido.
+  
+  · Sin pérdida: Reduce el tamaño del archivo sin eliminar ningún dato de la imagen, por lo que la calidad original se mantiene intacta y se puede restaurar completamente. El formato PNG es un ejemplo común, ideal para imágenes con texto, logotipos o transparencias.
+
+**Conversión de Formatos:** Este proceso consiste en cambiar una imagen de un formato de archivo a otro . Por ejemplo, convertir una imagen BMP (sin comprimir y de gran tamaño) a JPG para compartirla en línea, o convertir un gráfico vectorial (como un SVG) a un mapa de bits (un proceso conocido como rasterización) para poder visualizarlo correctamente en cualquier dispositivo o programa que no soporte vectores.
 
 
 
