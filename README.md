@@ -326,7 +326,74 @@ Ejemplos en Blender:
 
 ![flor de vida](https://github.com/user-attachments/assets/d69b1f71-c20b-4d47-ad28-d46e1ada8db1)
 
+Código de la Flor:
+```python
+import bpy
+import math
+
+# Limpiar la escena antes de empezar
+bpy.ops.object.select_all(action='SELECT')
+bpy.ops.object.delete()
+
+radio = 3
+angulo_actual = 0
+paso_angular = 60
+
+# Añadir el círculo central
+bpy.ops.mesh.primitive_circle_add(radius=radio, location=(0, 0, 0), vertices=64)
+
+# Bucle para añadir círculos alrededor del centro
+while angulo_actual < 360:
+    
+    x = radio * math.cos(math.radians(angulo_actual))
+    y = radio * math.sin(math.radians(angulo_actual))
+    
+    bpy.ops.mesh.primitive_circle_add(radius=radio, location=(x, y, 0), vertices=64)
+    
+    angulo_actual += paso_angular
+```
+
 ![poligono](https://github.com/user-attachments/assets/12cad587-d56b-40b9-aba4-4d631bca80d0)
+
+Código del Polígono:
+```python
+import bpy
+import math
+
+# Limpiar la escena
+bpy.ops.object.select_all(action='SELECT')
+bpy.ops.object.delete()
+
+def crear_poligono_2d(nombre, lados, radio):
+    # Crear malla y objeto
+    malla = bpy.data.meshes.new(nombre)
+    objeto = bpy.data.objects.new(nombre, malla)
+    
+    # Vincular a la escena
+    bpy.context.collection.objects.link(objeto)
+    
+    vertices = []
+    aristas = []
+    
+    # Calcular vértices (polígono regular)
+    for i in range(lados):
+        angulo = 2 * math.pi * i / lados
+        x = radio * math.cos(angulo)
+        y = radio * math.sin(angulo)
+        vertices.append((x, y, 0)) # Z = 0 para 2D
+        
+    # Crear aristas
+    for i in range(lados):
+        aristas.append((i, (i + 1) % lados))
+        
+    # Crear la malla
+    malla.from_pydata(vertices, aristas, [])
+    malla.update()
+
+# Llamada a la función
+# Cambia lados o radio si quieres otro polígono
+crear_poligono_2d("Poligono2D", lados=6, radio=5)
+```
 
 **Trazado de Líneas: Algoritmos Fundamentales**
 
