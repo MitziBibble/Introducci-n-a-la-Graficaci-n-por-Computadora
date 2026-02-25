@@ -322,6 +322,12 @@ Resumen:
 
 El objetivo del trazo de líneas y polígonos es, determinar qué píxeles específicos deben encenderse (con un color determinado) para que, al verlos en conjunto, nuestra mente perciba la forma deseada (una línea recta, el contorno de un polígono, etc.) . Este proceso se conoce como rasterización. El problema principal es que una línea ideal, excepto las perfectamente horizontales o verticales, cortará los píxeles de forma imperfecta. Por lo tanto, cualquier representación en una cuadrícula es una aproximación que contiene un error inherente, producto de pasar de lo continuo (analógico) a lo discreto (digital).
 
+Ejemplos en Blender:
+
+![flor de vida](https://github.com/user-attachments/assets/d69b1f71-c20b-4d47-ad28-d46e1ada8db1)
+
+![poligono](https://github.com/user-attachments/assets/12cad587-d56b-40b9-aba4-4d631bca80d0)
+
 **Trazado de Líneas: Algoritmos Fundamentales**
 
 Para trazar una línea definida por dos puntos extremos (x0, y0) y (x1, y1), se han desarrollado algoritmos que buscan la mejor aproximación posible de la manera más eficiente. Los dos más importantes son:
@@ -425,6 +431,21 @@ El procesamiento de mapas de bits abarca una amplia gama de operaciones, que se 
   · Sin pérdida: Reduce el tamaño del archivo sin eliminar ningún dato de la imagen, por lo que la calidad original se mantiene intacta y se puede restaurar completamente. El formato PNG es un ejemplo común, ideal para imágenes con texto, logotipos o transparencias.
 
 **Conversión de Formatos:** Este proceso consiste en cambiar una imagen de un formato de archivo a otro . Por ejemplo, convertir una imagen BMP (sin comprimir y de gran tamaño) a JPG para compartirla en línea, o convertir un gráfico vectorial (como un SVG) a un mapa de bits (un proceso conocido como rasterización) para poder visualizarlo correctamente en cualquier dispositivo o programa que no soporte vectores.
+
+## Fuentes Bibliográficas:
+
+Client challenge. (s. f.). https://es.scribd.com/document/393263572/Historia-y-Evolucion-de-La-Graficacion-Por-Computadora
+
+Color space: RGB, CMY, HSV, HSL, Lab detailed explanation (reproduced) - Programmer Sought. (s. f.). https://www.programmersought.com/article/34373506759/
+
+Unknown. (s. f.). UNIDAD 3. https://vicgrafic13.blogspot.com/p/blog-page_3643.html?m=1
+
+Boada, D. (2024, 6 septiembre). Los 13 mejores formatos de imagen: guía completa. Tutoriales Hostinger. https://www.hostinger.com/mx/tutoriales/formatos-de-imagen?http://replytocom=40880#respond
+
+Client challenge. (s. f.-b). https://es.slideshare.net/slideshow/1-6-procesamiento-de-mapas-de-bits-en-graficacion/282295902
+
+Guías BibUpo: Conceptos clave sobre la edición multimedia: la imagen digital: Mapa de bits. (s. f.). https://guiasbib.upo.es/Conceptos_Clave_Edicion_Multimedia_Imagen_Digital/Mapa_bits
+
 
 
 
